@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>Getting Started: Serving Web Content</title> 
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<h2>Mensagens</h2>
+	<form action="#" th:action="@{'/mensagem/novo'}" th:method="get" >
+		<button type="submit" class="btn">Nova mensagem</button>
+	</form>
+	<div th:unless="${#lists.isEmpty(mensagens)}">
+		<table>
+		    <tr>
+		        <th>Data Hora</th>
+		        <th>Conteúdo</th>
+		        <th>Emissor</th>
+		        <th>Receptor</th>
+		        <th></th>
+		        <th></th>
+		    </tr>
+		    <tr th:each="mensagem : ${mensagens}">
+		        <td class="align-middle" th:text="${mensagem.dataHora}"></td>
+		        <td class="align-middle" th:text="${mensagem.conteudo}"></td>
+		        <td class="align-middle" th:text="${mensagem.emissor}"></td>
+		        <td class="align-middle" th:text="${mensagem.receptor}"></td>
+		        <td class="align-middle">
+					<form action="#" th:action="@{'/mensagem/{id}'(id=${mensagem.id})}" th:method="delete" >
+						<button type="submit" class="btn">Excluir</button>
+					</form>
+				</td>
+		        <td class="align-middle">
+					<form action="#" th:action="@{'/mensagem/alterar/{id}'(id=${mensagem.id})}" th:method="put" >
+						<button type="submit" class="btn">Alterar</button>
+					</form>
+				</td>
+		    </tr>
+		</table>
+	</div>
+</body>
+</html>
